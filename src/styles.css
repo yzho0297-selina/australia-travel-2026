@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #f7f1e8;
+}
+
+::selection {
+  background: rgba(198, 129, 93, 0.25);
+}
+
+.section-shell {
+  width: min(100% - 2rem, 1280px);
+  margin-inline: auto;
+}
+
+.glass-panel {
+  @apply border border-white/55 bg-white/70 shadow-soft backdrop-blur-xl;
+}
