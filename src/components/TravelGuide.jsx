@@ -5,6 +5,7 @@ import airportStep3 from "../uploaded-pictures/airport-step3.png";
 import airportStep4 from "../uploaded-pictures/airport-step4.png";
 import beforeLand from "../uploaded-pictures/before-land.png";
 import claimLuggage from "../uploaded-pictures/claim-luggage.png";
+import ImageWithOperaLoader from "./ImageWithOperaLoader.jsx";
 
 const arrivalSteps = [
   {
@@ -188,10 +189,11 @@ function StepVisual({ step }) {
             className="flex w-full cursor-zoom-in items-center justify-center"
             aria-label={`全屏查看${step.imageAlt}`}
           >
-            <img
+            <ImageWithOperaLoader
               src={images[currentImageIndex]}
               alt={`${step.imageAlt} ${currentImageIndex + 1}`}
               className="h-auto w-full rounded-2xl object-contain shadow-soft"
+              wrapperClassName="w-full rounded-2xl"
             />
           </button>
 
@@ -268,10 +270,11 @@ function StepVisual({ step }) {
               </button>
             ) : null}
 
-            <img
+            <ImageWithOperaLoader
               src={images[currentImageIndex]}
               alt={`${step.imageAlt} ${currentImageIndex + 1}`}
               className="max-h-[92vh] max-w-[92vw] object-contain shadow-[0_28px_90px_rgba(0,0,0,0.28)] transition-transform duration-150"
+              wrapperClassName="items-center justify-center rounded-2xl"
               onClick={(event) => event.stopPropagation()}
               onDoubleClick={(event) => {
                 event.stopPropagation();

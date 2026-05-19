@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { itinerary } from "../data/tripData.js";
+import ImageWithOperaLoader from "./ImageWithOperaLoader.jsx";
 
 const editorialSerif =
   '"Abadi", "Abadi MT Condensed Light", "Abadi MT", "Aptos", "Arial", "Hannotate SC", "Yuanti SC", "Kaiti SC", "STKaiti", "KaiTi", "Noto Serif CJK SC", sans-serif';
@@ -155,10 +156,11 @@ function PlaceExpansion({ place }) {
   return (
     <div className="rounded-[28px] py-2">
       <div className="group flex items-center justify-center overflow-visible rounded-3xl">
-        <img
+        <ImageWithOperaLoader
           src={getPlaceImageUrl(place)}
           alt={place.name}
           className="h-auto max-h-[72vh] max-w-full rounded-3xl object-contain shadow-[0_22px_58px_rgba(106,74,140,0.18)] transition duration-700 ease-out group-hover:scale-[1.01]"
+          wrapperClassName="min-h-[240px] w-full items-center justify-center md:min-h-[360px]"
           loading="lazy"
           onError={(event) => {
             event.currentTarget.onerror = null;
@@ -195,7 +197,7 @@ function PlaceExpansion({ place }) {
 }
 
 function DayCard({ day }) {
-  const [expandedName, setExpandedName] = useState(null);
+  const [expandedNames, setExpandedNames] = useState([]);
 
   return (
     <article className="dream-glass-card w-full rounded-[32px] p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_80px_rgba(106,74,140,0.24)] md:p-8 lg:p-10">
@@ -218,7 +220,7 @@ function DayCard({ day }) {
 
       <div className="mt-8 space-y-4">
         {day.places.map((place, index) => {
-          const isExpanded = place.name === expandedName;
+          const isExpanded = expandedNames.includes(place.name);
 
           return (
             <div key={place.name} className="space-y-4">
@@ -227,9 +229,13 @@ function DayCard({ day }) {
                 index={index}
                 isActive={isExpanded}
                 onClick={() =>
-                  setExpandedName((currentName) =>
-                    currentName === place.name ? null : place.name
-                  )
+                  setExpandedNames((currentNames) => {
+                    if (currentNames.includes(place.name)) {
+                      return currentNames.filter((name) => name !== place.name);
+                    }
+
+                    return [...currentNames, place.name];
+                  })
                 }
               />
 

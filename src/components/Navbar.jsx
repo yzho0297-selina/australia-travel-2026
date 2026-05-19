@@ -1,4 +1,5 @@
 import auIcon from "../uploaded-pictures/Au-icon.png";
+import ImageWithOperaLoader from "./ImageWithOperaLoader.jsx";
 
 const navItems = [
   { label: "Home", href: "/", page: "home" },
@@ -14,10 +15,11 @@ function Navbar({ currentPage }) {
       >
         <a href="/" className="flex items-center gap-2 font-semibold text-[#5F5A7A]">
           <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-white/35 shadow-sm ring-1 ring-white/35">
-            <img
+            <ImageWithOperaLoader
               src={auIcon}
               alt="Australia Trip"
               className="h-full w-full object-cover"
+              wrapperClassName="h-full w-full rounded-full"
             />
           </span>
           <span className="hidden sm:inline">Australia Trip 2026</span>

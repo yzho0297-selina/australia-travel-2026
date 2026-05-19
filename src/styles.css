@@ -40,3 +40,48 @@ body {
 .dream-glass-card {
   @apply border border-white/25 bg-white/20 shadow-[0_24px_70px_rgba(106,74,140,0.16)] backdrop-blur-xl;
 }
+
+.opera-loader svg {
+  overflow: visible;
+}
+
+.opera-loader path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.opera-frame {
+  animation: opera-frame-cycle 1.6s steps(1, end) infinite;
+  opacity: 0;
+}
+
+.opera-frame-1 {
+  animation-delay: 0s;
+}
+
+.opera-frame-2 {
+  animation-delay: 0.4s;
+}
+
+.opera-frame-3 {
+  animation-delay: 0.8s;
+}
+
+.opera-frame-4 {
+  animation-delay: 1.2s;
+}
+
+@keyframes opera-frame-cycle {
+  0%,
+  24.99% {
+    opacity: 1;
+  }
+
+  25%,
+  100% {
+    opacity: 0;
+  }
+}
