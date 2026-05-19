@@ -13,11 +13,67 @@ import { itinerary } from "../data/tripData.js";
 const editorialSerif =
   '"Abadi", "Abadi MT Condensed Light", "Abadi MT", "Aptos", "Arial", "Hannotate SC", "Yuanti SC", "Kaiti SC", "STKaiti", "KaiTi", "Noto Serif CJK SC", sans-serif';
 
+const placeImageQueries = {
+  "12:00 到达墨尔本": "Melbourne airport arrivals terminal",
+  "Check in（住在 City CBD）": "Melbourne CBD hotel city view",
+  "Monash University Clayton Campus": "Monash University Clayton campus architecture",
+  "Chadstone Shopping Centre": "Chadstone shopping centre Melbourne",
+  "Yarra River / Southbank Dinner Walk": "Yarra River Southbank Melbourne night",
+  "Melbourne Central": "Melbourne Central clock tower shopping",
+  "Chinatown Melbourne": "Melbourne Chinatown street",
+  "Flinders Street Station": "Flinders Street Station Melbourne",
+  "圣保罗教堂": "St Pauls Cathedral Melbourne",
+  "维多利亚州立图书馆": "State Library Victoria reading room",
+  "皇家拱廊": "Royal Arcade Melbourne",
+  "Myer购物商场": "Melbourne Bourke Street Mall department store",
+  "David Jones购物商场": "Melbourne luxury department store",
+  "St Kilda Beach Sunset": "St Kilda Beach Melbourne sunset",
+  "St Kilda Pier Penguins": "St Kilda Pier penguins Melbourne",
+  Fitzroy: "Fitzroy Melbourne street art cafes",
+  "Brunswick Street": "Brunswick Street Fitzroy Melbourne",
+  "Carlton Gardens": "Carlton Gardens Melbourne Royal Exhibition Building",
+  "University of Melbourne": "University of Melbourne campus",
+  "墨尔本周边小镇一日游": "Victoria Australia small town day trip",
+  "小镇街区散步": "Australian small town main street",
+  "小镇咖啡 / Brunch": "Australian cafe brunch",
+  "自然风景 / Lookout": "Victoria Australia lookout nature view",
+  "中午前往悉尼": "Melbourne to Sydney flight airplane window",
+  "抵达悉尼并 Check in": "Sydney CBD hotel city view",
+  "Sydney Harbour Bridge Night View": "Sydney Harbour Bridge night",
+  "Sydney Opera House Night View": "Sydney Opera House night",
+  "Sydney Opera House Interior Tour": "Sydney Opera House interior",
+  "Hyde Park": "Hyde Park Sydney",
+  "Royal Botanic Garden Sydney": "Royal Botanic Garden Sydney harbour view",
+  "Queen Victoria Building": "Queen Victoria Building Sydney interior",
+  "Town Hall": "Sydney Town Hall",
+  "Sydney Chinatown": "Sydney Chinatown night",
+  "悉尼周边小镇": "New South Wales coastal town",
+  "徒步路线": "Sydney hiking trail nature",
+  野餐: "Australia picnic park",
+  "小镇自由活动": "New South Wales small town cafe street",
+  "Ferry to Watsons Bay": "Sydney ferry harbour Watsons Bay",
+  "Watsons Bay": "Watsons Bay Sydney",
+  "Coastal Walk to Bondi": "Sydney coastal walk ocean cliffs",
+  "Bondi Beach": "Bondi Beach Sydney",
+  "Bondi Junction Dinner": "Bondi Junction Sydney restaurant",
+  "早上 8:00 从悉尼离开澳大利亚": "Sydney airport departures",
+  返回中国: "airplane window clouds flight"
+};
+
+const getPlaceImageQuery = (place) =>
+  place.imageQuery ||
+  placeImageQueries[place.name] ||
+  place.imageKeyword ||
+  place.name;
+
+const getImageSeed = (value) =>
+  Array.from(value).reduce((total, character) => total + character.charCodeAt(0), 0);
+
 const getPlaceImageUrl = (place) =>
   place.image ||
   `https://source.unsplash.com/featured/1600x900/?${encodeURIComponent(
-    place.imageKeyword || place.name
-  )}`;
+    getPlaceImageQuery(place)
+  )}&sig=${getImageSeed(place.name)}`;
 
 const getFallbackImageUrl = (place) =>
   `https://placehold.co/1600x900/f3efe7/1f2937?text=${encodeURIComponent(
@@ -87,7 +143,7 @@ function PlaceButton({ place, index, isActive, onClick }) {
         size={20}
         className={`shrink-0 transition duration-300 ${
           isActive
-            ? "text-[#4F5373]"
+            ? "rotate-90 text-[#4F5373]"
             : "text-[#4F5373]/40 group-hover:translate-x-1 group-hover:text-[#7A7693]"
         }`}
       />
@@ -95,14 +151,14 @@ function PlaceButton({ place, index, isActive, onClick }) {
   );
 }
 
-function PlaceDetailPanel({ place }) {
+function PlaceExpansion({ place }) {
   return (
-    <aside className="dream-glass-card rounded-[32px] p-4 md:p-5">
-      <div className="group h-[260px] overflow-hidden rounded-3xl bg-[#ADD9F3]/40 md:h-[320px]">
+    <div className="rounded-[28px] py-2">
+      <div className="group flex items-center justify-center overflow-visible rounded-3xl">
         <img
           src={getPlaceImageUrl(place)}
-          alt=""
-          className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
+          alt={place.name}
+          className="h-auto max-h-[72vh] max-w-full rounded-3xl object-contain shadow-[0_22px_58px_rgba(106,74,140,0.18)] transition duration-700 ease-out group-hover:scale-[1.01]"
           loading="lazy"
           onError={(event) => {
             event.currentTarget.onerror = null;
@@ -111,20 +167,20 @@ function PlaceDetailPanel({ place }) {
         />
       </div>
 
-      <div className="px-2 pb-2 pt-6 md:px-3 md:pb-3 md:pt-7">
+      <div className="px-1 pb-1 pt-5 md:px-2 md:pt-6">
         <div className="inline-flex items-center gap-2 rounded-full bg-white/45 px-4 py-2 text-sm font-semibold text-[#4F5373]">
           <MapPin size={15} />
           {place.city}
         </div>
 
-        <h4 className="mt-5 text-3xl font-semibold leading-tight tracking-normal text-[#4F5373] md:text-4xl">
+        <h4 className="mt-4 text-2xl font-semibold leading-tight tracking-normal text-[#4F5373] md:text-3xl">
           {place.name}
         </h4>
-        <p className="mt-4 text-base leading-7 text-[#5F5A7A] md:text-lg md:leading-8">
+        <p className="mt-3 text-base leading-7 text-[#5F5A7A] md:text-lg md:leading-8">
           {place.description}
         </p>
 
-        <div className="mt-6 rounded-2xl bg-white/35 p-5">
+        <div className="mt-5 rounded-2xl bg-white/35 p-5">
           <div className="flex items-center gap-2 text-sm font-semibold text-[#7A7693]">
             <Sparkles size={17} />
             推荐理由 / 打卡重点
@@ -134,52 +190,53 @@ function PlaceDetailPanel({ place }) {
           </p>
         </div>
       </div>
-    </aside>
+    </div>
   );
 }
 
 function DayCard({ day }) {
-  const [selectedName, setSelectedName] = useState(day.places[0]?.name);
-  const selectedPlace =
-    day.places.find((place) => place.name === selectedName) || day.places[0];
+  const [expandedName, setExpandedName] = useState(null);
 
   return (
     <article className="dream-glass-card w-full rounded-[32px] p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_80px_rgba(106,74,140,0.24)] md:p-8 lg:p-10">
-      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10">
-        <div className="lg:col-span-5">
-          <div className="flex flex-wrap items-center gap-3">
-            <p className="text-lg font-medium uppercase tracking-[0.28em] text-[#7A7693] md:text-xl">
-              {day.day.replace("Day", "DAY")} · {day.date}
-            </p>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/40 px-3 py-1.5 text-sm font-semibold text-[#4F5373] shadow-sm">
-              <MapPin size={14} />
-              {day.city}
-            </span>
-          </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <p className="text-lg font-medium uppercase tracking-[0.28em] text-[#7A7693] md:text-xl">
+          {day.day.replace("Day", "DAY")} · {day.date}
+        </p>
+        <span className="inline-flex items-center gap-2 rounded-full bg-white/40 px-3 py-1.5 text-sm font-semibold text-[#4F5373] shadow-sm">
+          <MapPin size={14} />
+          {day.city}
+        </span>
+      </div>
 
-          <h3 className="mt-5 text-3xl font-semibold leading-tight tracking-normal text-[#4F5373] md:text-4xl">
-            {day.title}
-          </h3>
-          <p className="mt-4 text-base leading-7 text-[#5F5A7A] md:text-lg md:leading-8">
-            {getMoodLine(day)}
-          </p>
+      <h3 className="mt-5 text-3xl font-semibold leading-tight tracking-normal text-[#4F5373] md:text-4xl">
+        {day.title}
+      </h3>
+      <p className="mt-4 text-base leading-7 text-[#5F5A7A] md:text-lg md:leading-8">
+        {getMoodLine(day)}
+      </p>
 
-          <div className="mt-8 space-y-4">
-            {day.places.map((place, index) => (
+      <div className="mt-8 space-y-4">
+        {day.places.map((place, index) => {
+          const isExpanded = place.name === expandedName;
+
+          return (
+            <div key={place.name} className="space-y-4">
               <PlaceButton
-                key={place.name}
                 place={place}
                 index={index}
-                isActive={place.name === selectedPlace.name}
-                onClick={() => setSelectedName(place.name)}
+                isActive={isExpanded}
+                onClick={() =>
+                  setExpandedName((currentName) =>
+                    currentName === place.name ? null : place.name
+                  )
+                }
               />
-            ))}
-          </div>
-        </div>
 
-        <div className="lg:col-span-7">
-          <PlaceDetailPanel place={selectedPlace} />
-        </div>
+              {isExpanded ? <PlaceExpansion place={place} /> : null}
+            </div>
+          );
+        })}
       </div>
     </article>
   );
@@ -201,7 +258,7 @@ function Timeline() {
             每日行程一览
           </h2>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-[#5F5A7A] md:text-xl md:leading-9">
-            左侧快速切换每天的地点，右侧立即查看照片、介绍和打卡重点。
+            点击任意行程即可在当前位置展开照片，再次点击即可收起。
           </p>
         </div>
 

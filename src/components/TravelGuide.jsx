@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import airportStep1 from "../uploaded-pictures/airport-step1.png";
 import airportStep2 from "../uploaded-pictures/airport-step2.png";
 import airportStep3 from "../uploaded-pictures/airport-step3.png";
@@ -112,15 +112,67 @@ function SectionHeading({ eyebrow, title, description }) {
 function StepVisual({ step }) {
   const images = step.images || (step.image ? [step.image] : []);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
+  const [imageScale, setImageScale] = useState(1);
+  const pinchDistanceRef = useRef(null);
+  const pinchScaleRef = useRef(1);
   const hasMultipleImages = images.length > 1;
 
-  const goToPreviousImage = () => {
+  const resetZoom = () => {
+    setImageScale(1);
+    pinchDistanceRef.current = null;
+    pinchScaleRef.current = 1;
+  };
+
+  const getTouchDistance = (touches) => {
+    const [firstTouch, secondTouch] = touches;
+    return Math.hypot(
+      secondTouch.clientX - firstTouch.clientX,
+      secondTouch.clientY - firstTouch.clientY
+    );
+  };
+
+  const handleFullscreenClose = () => {
+    setIsFullscreenOpen(false);
+    resetZoom();
+  };
+
+  const handleFullscreenOpen = () => {
+    resetZoom();
+    setIsFullscreenOpen(true);
+  };
+
+  const handleTouchStart = (event) => {
+    if (event.touches.length !== 2) return;
+    pinchDistanceRef.current = getTouchDistance(event.touches);
+    pinchScaleRef.current = imageScale;
+  };
+
+  const handleTouchMove = (event) => {
+    if (event.touches.length !== 2 || !pinchDistanceRef.current) return;
+    event.preventDefault();
+    const nextDistance = getTouchDistance(event.touches);
+    const nextScale =
+      pinchScaleRef.current * (nextDistance / pinchDistanceRef.current);
+    setImageScale(Math.min(Math.max(nextScale, 1), 4));
+  };
+
+  const handleTouchEnd = () => {
+    pinchDistanceRef.current = null;
+    pinchScaleRef.current = imageScale;
+  };
+
+  const goToPreviousImage = (event) => {
+    event?.stopPropagation();
+    resetZoom();
     setCurrentImageIndex((index) =>
       index === 0 ? images.length - 1 : index - 1
     );
   };
 
-  const goToNextImage = () => {
+  const goToNextImage = (event) => {
+    event?.stopPropagation();
+    resetZoom();
     setCurrentImageIndex((index) =>
       index === images.length - 1 ? 0 : index + 1
     );
@@ -128,47 +180,144 @@ function StepVisual({ step }) {
 
   if (images.length > 0) {
     return (
-      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-soft">
-        <img
-          src={images[currentImageIndex]}
-          alt={`${step.imageAlt} ${currentImageIndex + 1}`}
-          className="h-full w-full object-cover"
-        />
+      <>
+        <div className="relative flex w-full items-center justify-center">
+          <button
+            type="button"
+            onClick={handleFullscreenOpen}
+            className="flex w-full cursor-zoom-in items-center justify-center"
+            aria-label={`全屏查看${step.imageAlt}`}
+          >
+            <img
+              src={images[currentImageIndex]}
+              alt={`${step.imageAlt} ${currentImageIndex + 1}`}
+              className="h-auto w-full rounded-2xl object-contain shadow-soft"
+            />
+          </button>
 
-        {hasMultipleImages ? (
-          <>
+          {hasMultipleImages ? (
+            <>
+              <button
+                type="button"
+                onClick={goToPreviousImage}
+                className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/65 text-2xl leading-none text-[#4F5373] shadow-sm backdrop-blur-xl transition hover:bg-white/85"
+                aria-label="上一张图片"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                onClick={goToNextImage}
+                className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/65 text-2xl leading-none text-[#4F5373] shadow-sm backdrop-blur-xl transition hover:bg-white/85"
+                aria-label="下一张图片"
+              >
+                ›
+              </button>
+              <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-white/45 px-3 py-2 backdrop-blur-xl">
+                {images.map((image, index) => (
+                  <button
+                    key={image}
+                    type="button"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      resetZoom();
+                      setCurrentImageIndex(index);
+                    }}
+                    className={`h-2.5 w-2.5 rounded-full transition ${
+                      index === currentImageIndex
+                        ? "bg-[#4F5373]"
+                        : "bg-white/70"
+                    }`}
+                    aria-label={`查看第 ${index + 1} 张图片`}
+                  />
+                ))}
+              </div>
+            </>
+          ) : null}
+        </div>
+
+        {isFullscreenOpen ? (
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#2f2942]/80 p-4 backdrop-blur-xl"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${step.imageAlt} 全屏预览`}
+            onClick={handleFullscreenClose}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            style={{ touchAction: "none" }}
+          >
             <button
               type="button"
-              onClick={goToPreviousImage}
-              className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/55 text-2xl leading-none text-[#4F5373] shadow-sm backdrop-blur-xl transition hover:bg-white/75"
-              aria-label="上一张图片"
+              className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/70 text-2xl leading-none text-[#4F5373] shadow-soft backdrop-blur-xl transition hover:bg-white"
+              onClick={handleFullscreenClose}
+              aria-label="关闭全屏图片"
             >
-              ‹
+              ×
             </button>
-            <button
-              type="button"
-              onClick={goToNextImage}
-              className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/55 text-2xl leading-none text-[#4F5373] shadow-sm backdrop-blur-xl transition hover:bg-white/75"
-              aria-label="下一张图片"
-            >
-              ›
-            </button>
-            <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-white/45 px-3 py-2 backdrop-blur-xl">
-              {images.map((image, index) => (
-                <button
-                  key={image}
-                  type="button"
-                  onClick={() => setCurrentImageIndex(index)}
-                  className={`h-2.5 w-2.5 rounded-full transition ${
-                    index === currentImageIndex ? "bg-[#4F5373]" : "bg-white/70"
-                  }`}
-                  aria-label={`查看第 ${index + 1} 张图片`}
-                />
-              ))}
-            </div>
-          </>
+
+            {hasMultipleImages ? (
+              <button
+                type="button"
+                onClick={goToPreviousImage}
+                className="absolute left-4 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/65 text-3xl leading-none text-[#4F5373] shadow-soft backdrop-blur-xl transition hover:bg-white"
+                aria-label="上一张图片"
+              >
+                ‹
+              </button>
+            ) : null}
+
+            <img
+              src={images[currentImageIndex]}
+              alt={`${step.imageAlt} ${currentImageIndex + 1}`}
+              className="max-h-[92vh] max-w-[92vw] object-contain shadow-[0_28px_90px_rgba(0,0,0,0.28)] transition-transform duration-150"
+              onClick={(event) => event.stopPropagation()}
+              onDoubleClick={(event) => {
+                event.stopPropagation();
+                resetZoom();
+              }}
+              style={{
+                transform: `scale(${imageScale})`,
+                transformOrigin: "center center"
+              }}
+            />
+
+            {hasMultipleImages ? (
+              <button
+                type="button"
+                onClick={goToNextImage}
+                className="absolute right-4 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/65 text-3xl leading-none text-[#4F5373] shadow-soft backdrop-blur-xl transition hover:bg-white"
+                aria-label="下一张图片"
+              >
+                ›
+              </button>
+            ) : null}
+
+            {hasMultipleImages ? (
+              <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-white/45 px-3 py-2 backdrop-blur-xl">
+                {images.map((image, index) => (
+                  <button
+                    key={image}
+                    type="button"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      resetZoom();
+                      setCurrentImageIndex(index);
+                    }}
+                    className={`h-2.5 w-2.5 rounded-full transition ${
+                      index === currentImageIndex
+                        ? "bg-white"
+                        : "bg-white/45"
+                    }`}
+                    aria-label={`查看第 ${index + 1} 张图片`}
+                  />
+                ))}
+              </div>
+            ) : null}
+          </div>
         ) : null}
-      </div>
+      </>
     );
   }
 

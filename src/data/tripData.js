@@ -1,3 +1,9 @@
+import chadstoneImage from "../uploaded-pictures/chadstone.png";
+import melAirportImage from "../uploaded-pictures/mel-airport.png";
+import melCbdImage from "../uploaded-pictures/mel-CBD.png";
+import monashImage from "../uploaded-pictures/monash.png";
+import yarraImage from "../uploaded-pictures/yarra.png";
+
 export const tripSummary = [
   { value: "2", label: "Cities" },
   { value: "9", label: "Days" },
@@ -18,6 +24,7 @@ export const itinerary = [
         city: "Melbourne",
         description: "中午抵达墨尔本，完成入境、取行李和前往市区酒店。",
         highlight: "入境流程可查看旅行指南页面",
+        image: melAirportImage,
         imageKeyword: "melbourne-airport"
       },
       {
@@ -25,6 +32,7 @@ export const itinerary = [
         city: "Melbourne",
         description: "入住墨尔本 CBD，方便后续几天 city walk、购物和交通换乘。",
         highlight: "住在市中心可以节省交通时间，晚上也更方便吃饭散步。",
+        image: melCbdImage,
         imageKeyword: "melbourne-cbd-hotel"
       },
       {
@@ -32,6 +40,7 @@ export const itinerary = [
         city: "Melbourne",
         description: "前往 Monash Clayton 校区，是monash主校区，承载了2年回忆的地方～分享给hcx。",
         highlight: "适合打卡各种“钱砸出来的建筑”体验上课日常。",
+        image: monashImage,
         imageKeyword: "monash-university-campus"
       },
       {
@@ -39,6 +48,7 @@ export const itinerary = [
         city: "Melbourne",
         description: "回 city 的路上前往 Chadstone Shopping Centre,南半球最大的购物中心之一。",
         highlight: "品牌齐全，还有澳洲两大超市巨头wws&Coles，逛超市是体验澳洲物价最好的方式之一。",
+        image: chadstoneImage,
         imageKeyword: "chadstone-shopping-centre"
       },
       {
@@ -46,6 +56,7 @@ export const itinerary = [
         city: "Melbourne",
         description: "晚上回到 city，可以在 Yarra 河边吃饭并散步。",
         highlight: "雅拉河边的西餐厅经常刷新出穿着smart suit的上班族💼。",
+        image: yarraImage,
         imageKeyword: "city很小，吃穿住行方便！"
       }
     ]
