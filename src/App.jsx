@@ -4,17 +4,32 @@ import Timeline from "./components/Timeline.jsx";
 import TravelGuide from "./components/TravelGuide.jsx";
 
 function App() {
+  const pathname = window.location.pathname;
+  const isGuidePage = pathname === "/guide";
+  const isTimelinePage = pathname === "/timeline";
+  const currentPage = isGuidePage
+    ? "guide"
+    : isTimelinePage
+      ? "timeline"
+      : "home";
+
   return (
-    <div className="min-h-screen bg-cream text-ink">
-      <Navbar />
+    <div className="min-h-screen bg-[#f9eef7] text-ink">
+      <Navbar currentPage={currentPage} />
       <main>
-        <Hero />
-        <Timeline />
-        <TravelGuide />
+        {isGuidePage ? (
+          <TravelGuide />
+        ) : isTimelinePage ? (
+          <Timeline />
+        ) : (
+          <Hero />
+        )}
       </main>
-      <footer className="border-t border-ink/10 bg-white/55 px-6 py-10 text-center text-sm text-ink/60">
-        Made for our Australia Trip 2026
-      </footer>
+      {currentPage === "home" ? null : (
+        <footer className="border-t border-white/35 bg-white/20 px-6 py-10 text-center text-sm text-[#7A7693] backdrop-blur-xl">
+          Made for our Australia Trip 2026
+        </footer>
+      )}
     </div>
   );
 }

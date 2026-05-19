@@ -56,13 +56,13 @@ function PlaceButton({ place, index, isActive, onClick }) {
       onClick={onClick}
       className={`group flex w-full items-center gap-4 rounded-2xl px-4 py-4 text-left transition-all duration-300 md:px-5 ${
         isActive
-          ? "bg-navy text-white shadow-lift"
-          : "border border-ink/10 bg-white/75 text-ink shadow-sm hover:translate-x-1 hover:border-clay/25 hover:bg-white hover:shadow-md"
+          ? "bg-gradient-to-r from-[#FCAEC1]/95 via-[#D9B6EE]/95 to-[#ADD9F3]/95 text-[#4F5373] shadow-[0_18px_45px_rgba(106,74,140,0.26)]"
+          : "border border-white/45 bg-white/30 text-[#4F5373] shadow-sm backdrop-blur-xl hover:translate-x-1 hover:bg-white/45 hover:shadow-[0_16px_38px_rgba(106,74,140,0.18)]"
       }`}
     >
       <span
         className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl text-sm font-semibold ${
-          isActive ? "bg-white/20 text-white" : "bg-cream text-clay"
+          isActive ? "bg-white/35 text-[#4F5373]" : "bg-white/45 text-[#7A7693]"
         }`}
       >
         {number}
@@ -70,7 +70,7 @@ function PlaceButton({ place, index, isActive, onClick }) {
 
       <span
         className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
-          isActive ? "bg-white/15 text-white" : "bg-mist/60 text-navy"
+          isActive ? "bg-white/30 text-[#4F5373]" : "bg-[#ADD9F3]/45 text-[#4F5373]"
         }`}
       >
         <Icon size={18} />
@@ -84,8 +84,8 @@ function PlaceButton({ place, index, isActive, onClick }) {
         size={20}
         className={`shrink-0 transition duration-300 ${
           isActive
-            ? "text-white"
-            : "text-ink/30 group-hover:translate-x-1 group-hover:text-clay"
+            ? "text-[#4F5373]"
+            : "text-[#4F5373]/40 group-hover:translate-x-1 group-hover:text-[#7A7693]"
         }`}
       />
     </button>
@@ -94,8 +94,8 @@ function PlaceButton({ place, index, isActive, onClick }) {
 
 function PlaceDetailPanel({ place }) {
   return (
-    <aside className="rounded-[32px] bg-white p-4 shadow-lift md:p-5">
-      <div className="group h-[260px] overflow-hidden rounded-3xl bg-mist md:h-[320px]">
+    <aside className="dream-glass-card rounded-[32px] p-4 md:p-5">
+      <div className="group h-[260px] overflow-hidden rounded-3xl bg-[#ADD9F3]/40 md:h-[320px]">
         <img
           src={getPlaceImageUrl(place)}
           alt=""
@@ -109,24 +109,24 @@ function PlaceDetailPanel({ place }) {
       </div>
 
       <div className="px-2 pb-2 pt-6 md:px-3 md:pb-3 md:pt-7">
-        <div className="inline-flex items-center gap-2 rounded-full bg-cream px-4 py-2 text-sm font-semibold text-navy">
+        <div className="inline-flex items-center gap-2 rounded-full bg-white/45 px-4 py-2 text-sm font-semibold text-[#4F5373]">
           <MapPin size={15} />
           {place.city}
         </div>
 
-        <h4 className="mt-5 text-3xl font-semibold leading-tight tracking-normal text-ink md:text-4xl">
+        <h4 className="mt-5 text-3xl font-semibold leading-tight tracking-normal text-[#4F5373] md:text-4xl">
           {place.name}
         </h4>
-        <p className="mt-4 text-base leading-7 text-ink/70 md:text-lg md:leading-8">
+        <p className="mt-4 text-base leading-7 text-[#5F5A7A] md:text-lg md:leading-8">
           {place.description}
         </p>
 
-        <div className="mt-6 rounded-2xl bg-cream/90 p-5">
-          <div className="flex items-center gap-2 text-sm font-semibold text-clay">
+        <div className="mt-6 rounded-2xl bg-white/35 p-5">
+          <div className="flex items-center gap-2 text-sm font-semibold text-[#7A7693]">
             <Sparkles size={17} />
             推荐理由 / 打卡重点
           </div>
-          <p className="mt-3 text-base leading-7 text-ink/75">
+          <p className="mt-3 text-base leading-7 text-[#5F5A7A]">
             {place.highlight}
           </p>
         </div>
@@ -137,8 +137,8 @@ function PlaceDetailPanel({ place }) {
 
 function TravelTip({ tip }) {
   return (
-    <div className="rounded-2xl bg-cream/80 p-5 text-ink/70">
-      <p className="text-base font-semibold text-navy">旅行小贴士</p>
+    <div className="rounded-2xl border border-white/25 bg-white/20 p-5 text-[#5F5A7A] backdrop-blur-xl">
+      <p className="text-base font-semibold text-[#4F5373]">旅行小贴士</p>
       <p className="mt-2 text-base leading-7">
         {tip || "点击左侧地点，可以快速查看介绍、照片和打卡重点。"}
       </p>
@@ -152,23 +152,23 @@ function DayCard({ day }) {
     day.places.find((place) => place.name === selectedName) || day.places[0];
 
   return (
-    <article className="w-full rounded-[32px] bg-white/80 p-6 shadow-xl backdrop-blur-xl transition duration-300 hover:shadow-lift md:p-8 lg:p-10">
+    <article className="dream-glass-card w-full rounded-[32px] p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_80px_rgba(106,74,140,0.24)] md:p-8 lg:p-10">
       <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
           <div className="flex flex-wrap items-center gap-3">
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-clay">
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#7A7693]">
               {day.day.replace("Day", "DAY")} · {day.date}
             </p>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-navy shadow-sm">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/40 px-3 py-1.5 text-sm font-semibold text-[#4F5373] shadow-sm">
               <MapPin size={14} />
               {day.city}
             </span>
           </div>
 
-          <h3 className="mt-5 text-3xl font-semibold leading-tight tracking-normal text-ink md:text-4xl">
+          <h3 className="mt-5 text-3xl font-semibold leading-tight tracking-normal text-[#4F5373] md:text-4xl">
             {day.title}
           </h3>
-          <p className="mt-4 text-base leading-7 text-ink/65 md:text-lg md:leading-8">
+          <p className="mt-4 text-base leading-7 text-[#5F5A7A] md:text-lg md:leading-8">
             {getMoodLine(day)}
           </p>
 
@@ -201,21 +201,17 @@ function Timeline() {
   return (
     <section
       id="timeline"
-      className="relative overflow-hidden bg-cream py-20 sm:py-28"
-      style={{
-        background:
-          "radial-gradient(circle at 12% 6%, rgba(198,129,93,0.14), transparent 30rem), radial-gradient(circle at 86% 18%, rgba(191,217,234,0.36), transparent 34rem), linear-gradient(180deg, #F7F1E8 0%, #FBF8F2 48%, #F7F1E8 100%)"
-      }}
+      className="pastel-page-bg relative overflow-hidden pb-20 pt-28 sm:pb-28 sm:pt-32"
     >
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-clay">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#7A7693]">
             Timeline
           </p>
-          <h2 className="mt-4 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-normal text-navy md:text-7xl">
+          <h2 className="mt-4 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-normal text-[#4F5373] md:text-7xl">
             Browse the trip day by day
           </h2>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-ink/68 md:text-xl md:leading-9">
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-[#5F5A7A] md:text-xl md:leading-9">
             左侧快速切换每天的地点，右侧立即查看照片、介绍和打卡重点。
           </p>
         </div>

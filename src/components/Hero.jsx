@@ -1,68 +1,57 @@
-import { ArrowDown, CalendarDays, Plane } from "lucide-react";
-import { tripSummary } from "../data/tripData.js";
-
-const heroImage =
-  "https://images.unsplash.com/photo-1526958977630-bc61b30a2009?auto=format&fit=crop&w=2200&q=85";
+import { BookOpen, CalendarDays } from "lucide-react";
+import homeBg from "../assets/home-background-Sydney-station-view.jpg";
 
 function Hero() {
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden pt-16">
+    <section id="home" className="relative min-h-screen overflow-hidden">
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        className="absolute inset-[-1.5rem] scale-105 bg-cover bg-center blur-[2px]"
+        style={{
+          backgroundImage: `url(${homeBg})`,
+          backgroundPosition: "center center"
+        }}
         aria-hidden="true"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-navy/55 via-navy/25 to-cream" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(183,168,214,0.34) 0%, rgba(252,174,193,0.28) 34%, rgba(173,217,243,0.24) 68%, rgba(255,255,255,0.76) 100%)"
+        }}
+      />
+      <div className="absolute inset-0 bg-white/10 backdrop-blur-[2px]" />
+      <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#FCD1DB]/95 via-[#FCD1DB]/55 to-transparent" />
 
-      <div className="section-shell relative flex min-h-[calc(100vh-4rem)] flex-col justify-end pb-10 pt-16 sm:pb-14">
-        <div className="max-w-4xl pb-8 text-white">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/15 px-4 py-2 text-sm font-medium backdrop-blur-xl">
-            <CalendarDays size={17} />
-            26 Jun 2026 – 4 Jul 2026
-          </div>
-
-          <h1 className="max-w-4xl text-5xl font-semibold leading-[1.02] tracking-normal sm:text-7xl lg:text-8xl">
-            Melbourne & Sydney Winter Trip 2026
+      <div className="relative flex min-h-screen items-center justify-center px-4 pb-10 pt-28 sm:px-6 lg:px-8">
+        <div className="flex w-full max-w-5xl flex-col items-center text-center">
+          <h1 className="text-5xl font-semibold leading-[0.95] tracking-normal text-white drop-shadow-[0_8px_30px_rgba(95,56,127,0.5)] sm:text-7xl lg:text-8xl">
+            Melbourne &amp; Sydney
+            <span className="block">Winter Trip 2026</span>
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/90 sm:text-2xl">
-            City Walk · Coffee · Beach · Shopping · University
-          </p>
-
-          <div className="mt-5 flex flex-wrap items-center gap-3 text-sm font-medium text-white/90 sm:text-base">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur">
-              <Plane size={17} />
-              中国 → Melbourne → Sydney → 中国
-            </span>
-          </div>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-12 flex w-full flex-col items-center justify-center gap-5 sm:flex-row sm:gap-6">
             <a
-              href="#timeline"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-navy shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift"
+              href="/timeline"
+              className="group flex h-40 w-full max-w-[220px] flex-col items-center justify-center rounded-[2rem] bg-white/55 text-[#4F5373] shadow-[0_24px_70px_rgba(93,59,124,0.24)] ring-1 ring-white/60 backdrop-blur-2xl transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_90px_rgba(93,59,124,0.34)] sm:w-[210px]"
             >
-              View Timeline
-              <ArrowDown size={18} />
+              <CalendarDays
+                size={42}
+                className="transition duration-300 group-hover:scale-105"
+              />
+              <span className="mt-5 text-2xl font-semibold">查看旅行</span>
             </a>
+
             <a
-              href="#guide"
-              className="inline-flex items-center justify-center rounded-full border border-white/45 bg-white/15 px-6 py-3 font-semibold text-white backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/25"
+              href="/guide"
+              className="group flex h-40 w-full max-w-[220px] flex-col items-center justify-center rounded-[2rem] bg-gradient-to-br from-[#FCAEC1]/90 via-[#DDB8EE]/90 to-[#ADD9F3]/90 text-white shadow-[0_24px_70px_rgba(93,59,124,0.3)] ring-1 ring-white/45 backdrop-blur-2xl transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_90px_rgba(93,59,124,0.4)] sm:w-[210px]"
             >
-              Explore Travel Guide
+              <BookOpen
+                size={42}
+                className="transition duration-300 group-hover:scale-105"
+              />
+              <span className="mt-5 text-2xl font-semibold">查看攻略</span>
             </a>
           </div>
-        </div>
-
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {tripSummary.map((item) => (
-            <div
-              key={item.label}
-              className="rounded-[8px] border border-white/45 bg-white/70 p-5 shadow-soft backdrop-blur-xl"
-            >
-              <p className="text-3xl font-semibold text-navy">{item.value}</p>
-              <p className="mt-1 text-sm font-medium text-ink/65">{item.label}</p>
-            </div>
-          ))}
         </div>
       </div>
     </section>

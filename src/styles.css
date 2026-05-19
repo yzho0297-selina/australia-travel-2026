@@ -10,11 +10,11 @@
 body {
   margin: 0;
   min-width: 320px;
-  background: #f7f1e8;
+  background: #f9eef7;
 }
 
 ::selection {
-  background: rgba(198, 129, 93, 0.25);
+  background: rgba(183, 168, 214, 0.36);
 }
 
 .section-shell {
@@ -24,4 +24,16 @@ body {
 
 .glass-panel {
   @apply border border-white/55 bg-white/70 shadow-soft backdrop-blur-xl;
+}
+
+.pastel-page-bg {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(252, 174, 193, 0.58), transparent 28rem),
+    radial-gradient(circle at 88% 10%, rgba(173, 217, 243, 0.62), transparent 30rem),
+    radial-gradient(circle at 52% 82%, rgba(183, 168, 214, 0.42), transparent 34rem),
+    linear-gradient(180deg, #fbeaf2 0%, #f2ecfb 48%, #eef8ff 100%);
+}
+
+.dream-glass-card {
+  @apply border border-white/25 bg-white/20 shadow-[0_24px_70px_rgba(106,74,140,0.16)] backdrop-blur-xl;
 }

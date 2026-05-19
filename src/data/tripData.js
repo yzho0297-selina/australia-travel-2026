@@ -17,7 +17,7 @@ export const itinerary = [
         name: "12:00 到达墨尔本",
         city: "Melbourne",
         description: "中午抵达墨尔本，完成入境、取行李和前往市区酒店。",
-        highlight: "作为澳洲旅行的第一站，先轻松适应城市节奏。",
+        highlight: "入境流程可查看旅行指南页面",
         imageKeyword: "melbourne-airport"
       },
       {
@@ -30,23 +30,23 @@ export const itinerary = [
       {
         name: "Monash University Clayton Campus",
         city: "Melbourne",
-        description: "前往 Monash Clayton 校区参观，感受澳洲大学校园氛围。",
-        highlight: "适合校园打卡，也可以体验墨尔本大学城之外的学习生活环境。",
+        description: "前往 Monash Clayton 校区，是monash主校区，承载了2年回忆的地方～分享给hcx。",
+        highlight: "适合打卡各种“钱砸出来的建筑”体验上课日常。",
         imageKeyword: "monash-university-campus"
       },
       {
         name: "Chadstone Shopping Centre",
         city: "Melbourne",
-        description: "回 city 的路上前往 Chadstone Shopping Centre，南半球最大的购物中心之一。",
-        highlight: "品牌齐全，适合购物、吃饭和休息。",
+        description: "回 city 的路上前往 Chadstone Shopping Centre,南半球最大的购物中心之一。",
+        highlight: "品牌齐全，还有澳洲两大超市巨头wws&Coles，逛超市是体验澳洲物价最好的方式之一。",
         imageKeyword: "chadstone-shopping-centre"
       },
       {
         name: "Yarra River / Southbank Dinner Walk",
         city: "Melbourne",
         description: "晚上回到 city，可以在 Yarra 河边吃饭并散步。",
-        highlight: "第一晚用河岸夜景开启墨尔本行程，轻松不赶。",
-        imageKeyword: "yarra-river-melbourne-night"
+        highlight: "雅拉河边的西餐厅经常刷新出穿着smart suit的上班族💼。",
+        imageKeyword: "city很小，吃穿住行方便！"
       }
     ]
   },
