@@ -1,9 +1,9 @@
-import { MapPin } from "lucide-react";
+import auIcon from "../assest/Au-icon.png";
 
 const navItems = [
   { label: "Home", href: "/", page: "home" },
-  { label: "Timeline", href: "/timeline", page: "timeline" },
-  { label: "Travel Guide", href: "/guide", page: "guide" }
+  { label: "每日计划", href: "/timeline", page: "timeline" },
+  { label: "落地指南", href: "/guide", page: "guide" }
 ];
 
 function Navbar({ currentPage }) {
@@ -13,8 +13,12 @@ function Navbar({ currentPage }) {
         className="mx-auto flex h-16 w-[calc(100%-2rem)] max-w-7xl items-center justify-between rounded-full border border-white/20 bg-white/30 px-3 shadow-[0_18px_60px_rgba(90,52,124,0.18)] backdrop-blur-xl sm:px-4"
       >
         <a href="/" className="flex items-center gap-2 font-semibold text-[#5F5A7A]">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/35 text-[#4F5373]">
-            <MapPin size={18} />
+          <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-white/35 shadow-sm ring-1 ring-white/35">
+            <img
+              src={auIcon}
+              alt="Australia Trip"
+              className="h-full w-full object-cover"
+            />
           </span>
           <span className="hidden sm:inline">Australia Trip 2026</span>
         </a>

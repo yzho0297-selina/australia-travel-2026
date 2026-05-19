@@ -3,6 +3,12 @@ import Navbar from "./components/Navbar.jsx";
 import Timeline from "./components/Timeline.jsx";
 import TravelGuide from "./components/TravelGuide.jsx";
 
+const homeFont =
+  '"Bradley Hand", "Bradley Hand ITC", "Comic Sans MS", "Hannotate SC", "Yuanti SC", "Kaiti SC", "STKaiti", "KaiTi", cursive';
+
+const nonHomeFont =
+  '"Abadi", "Abadi MT Condensed Light", "Abadi MT", "Aptos", "Arial", "Hannotate SC", "Yuanti SC", "Kaiti SC", "STKaiti", "KaiTi", sans-serif';
+
 function App() {
   const pathname = window.location.pathname;
   const isGuidePage = pathname === "/guide";
@@ -12,10 +18,14 @@ function App() {
     : isTimelinePage
       ? "timeline"
       : "home";
+  const isHomePage = pathname === "/" || pathname === "/home";
 
   return (
-    <div className="min-h-screen bg-[#f9eef7] text-ink">
-      <Navbar currentPage={currentPage} />
+    <div
+      className="min-h-screen bg-[#f9eef7] text-ink"
+      style={{ fontFamily: isHomePage ? homeFont : nonHomeFont }}
+    >
+      {isHomePage ? null : <Navbar currentPage={currentPage} />}
       <main>
         {isGuidePage ? (
           <TravelGuide />

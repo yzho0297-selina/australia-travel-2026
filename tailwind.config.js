@@ -13,13 +13,15 @@ export default {
       },
       fontFamily: {
         sans: [
-          "Inter",
-          "ui-sans-serif",
-          "system-ui",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Segoe UI",
-          "sans-serif"
+          "Bradley Hand",
+          "Bradley Hand ITC",
+          "Comic Sans MS",
+          "Hannotate SC",
+          "Yuanti SC",
+          "Kaiti SC",
+          "STKaiti",
+          "KaiTi",
+          "cursive"
         ]
       },
       boxShadow: {

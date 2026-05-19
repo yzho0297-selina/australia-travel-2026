@@ -10,6 +10,9 @@ import {
 import { useState } from "react";
 import { itinerary } from "../data/tripData.js";
 
+const editorialSerif =
+  '"Abadi", "Abadi MT Condensed Light", "Abadi MT", "Aptos", "Arial", "Hannotate SC", "Yuanti SC", "Kaiti SC", "STKaiti", "KaiTi", "Noto Serif CJK SC", sans-serif';
+
 const getPlaceImageUrl = (place) =>
   place.image ||
   `https://source.unsplash.com/featured/1600x900/?${encodeURIComponent(
@@ -135,17 +138,6 @@ function PlaceDetailPanel({ place }) {
   );
 }
 
-function TravelTip({ tip }) {
-  return (
-    <div className="rounded-2xl border border-white/25 bg-white/20 p-5 text-[#5F5A7A] backdrop-blur-xl">
-      <p className="text-base font-semibold text-[#4F5373]">旅行小贴士</p>
-      <p className="mt-2 text-base leading-7">
-        {tip || "点击左侧地点，可以快速查看介绍、照片和打卡重点。"}
-      </p>
-    </div>
-  );
-}
-
 function DayCard({ day }) {
   const [selectedName, setSelectedName] = useState(day.places[0]?.name);
   const selectedPlace =
@@ -156,7 +148,7 @@ function DayCard({ day }) {
       <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
           <div className="flex flex-wrap items-center gap-3">
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#7A7693]">
+            <p className="text-lg font-medium uppercase tracking-[0.28em] text-[#7A7693] md:text-xl">
               {day.day.replace("Day", "DAY")} · {day.date}
             </p>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/40 px-3 py-1.5 text-sm font-semibold text-[#4F5373] shadow-sm">
@@ -183,10 +175,6 @@ function DayCard({ day }) {
               />
             ))}
           </div>
-
-          <div className="mt-6">
-            <TravelTip tip={day.tip} />
-          </div>
         </div>
 
         <div className="lg:col-span-7">
@@ -202,6 +190,7 @@ function Timeline() {
     <section
       id="timeline"
       className="pastel-page-bg relative overflow-hidden pb-20 pt-28 sm:pb-28 sm:pt-32"
+      style={{ fontFamily: editorialSerif }}
     >
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl">
@@ -209,7 +198,7 @@ function Timeline() {
             Timeline
           </p>
           <h2 className="mt-4 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-normal text-[#4F5373] md:text-7xl">
-            Browse the trip day by day
+            每日行程一览
           </h2>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-[#5F5A7A] md:text-xl md:leading-9">
             左侧快速切换每天的地点，右侧立即查看照片、介绍和打卡重点。

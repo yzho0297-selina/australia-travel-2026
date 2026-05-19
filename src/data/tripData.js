@@ -54,13 +54,13 @@ export const itinerary = [
     day: "Day 2",
     date: "6/27",
     city: "Melbourne",
-    title: "Melbourne CBD Icons & St Kilda Sunset",
+    title: "Melbourne 市内观光 & St Kilda 海边看日落",
     tags: ["City Walk", "Shopping", "Architecture", "Beach"],
     places: [
       {
         name: "Melbourne Central",
         city: "Melbourne",
-        description: "墨尔本市中心的重要购物和交通区域，有标志性的玻璃穹顶和钟楼。",
+        description: "墨尔本市中心的购物和交通区域，有标志性的玻璃穹顶和钟楼。",
         highlight: "适合作为 CBD city walk 的起点。",
         imageKeyword: "melbourne-central"
       },
@@ -68,49 +68,49 @@ export const itinerary = [
         name: "Chinatown Melbourne",
         city: "Melbourne",
         description: "墨尔本唐人街是澳洲历史悠久的华人街区之一，餐厅和亚洲美食集中。",
-        highlight: "适合吃饭、逛街，也很有城市生活感。",
+        highlight: "适合吃饭、逛街，看看都是什么菜传到了国外。",
         imageKeyword: "melbourne-chinatown"
       },
       {
         name: "Flinders Street Station",
         city: "Melbourne",
-        description: "墨尔本最经典的地标之一，黄色火车站建筑非常有辨识度。",
-        highlight: "第一次来墨尔本必拍照打卡。",
+        description: "墨尔本最经典的地标之一，也是重要的交通枢纽。",
+        highlight: "复古感拉满的建筑。",
         imageKeyword: "flinders-street-station"
       },
       {
-        name: "St Paul's Cathedral",
+        name: "圣保罗教堂",
         city: "Melbourne",
         description: "位于 Flinders Street Station 对面的教堂，是墨尔本 CBD 的经典建筑。",
         highlight: "和火车站、联邦广场可以一起顺路打卡。",
         imageKeyword: "st-pauls-cathedral-melbourne"
       },
       {
-        name: "State Library Victoria",
+        name: "维多利亚州立图书馆",
         city: "Melbourne",
-        description: "维多利亚州立图书馆是墨尔本最受欢迎的室内打卡点之一。",
-        highlight: "La Trobe Reading Room 非常适合拍照。",
+        description: "市内打卡点，可以从高处欣赏一楼的多边形自习场所，也可以当作艺术展来逛。",
+        highlight: "可拍照可自习可看展。",
         imageKeyword: "state-library-victoria"
       },
       {
-        name: "Royal Arcade",
+        name: "皇家拱廊",
         city: "Melbourne",
-        description: "皇家拱廊是墨尔本经典欧式购物拱廊。",
-        highlight: "适合拍建筑细节和逛精品小店。",
+        description: "墨尔本经典欧式购物拱廊，周围是风格统一的商铺，尊贵下午茶体验。",
+        highlight: "适合拍建筑细节和逛精品巧克力/蛋糕/咖啡店。",
         imageKeyword: "royal-arcade-melbourne"
       },
       {
-        name: "Myer",
+        name: "Myer购物商场",
         city: "Melbourne",
-        description: "澳洲经典百货商场，位于 CBD 核心购物区。",
-        highlight: "适合顺路逛街购物。",
+        description: "澳洲经典百货商场，彩妆/服饰柜台大集合，位于 CBD 核心购物区。",
+        highlight: "没有喜欢的品牌或产品可以走马观花。",
         imageKeyword: "myer-melbourne"
       },
       {
-        name: "David Jones",
+        name: "David Jones购物商场",
         city: "Melbourne",
-        description: "澳洲高端百货商场，和 Myer 相邻，适合一起逛。",
-        highlight: "适合看服饰、美妆和生活方式品牌。",
+        description: "和 Myer 相邻，适合一起逛。",
+        highlight: "价格不合适的时候走马观花即可",
         imageKeyword: "david-jones-melbourne"
       },
       {
@@ -124,7 +124,7 @@ export const itinerary = [
         name: "St Kilda Pier Penguins",
         city: "Melbourne",
         description: "日落后在 St Kilda Pier 附近等待企鹅归巢。",
-        highlight: "不用远途出城也能看到小企鹅，是墨尔本很特别的体验。",
+        highlight: "不用远途出城也能看到小企鹅。",
         imageKeyword: "st-kilda-penguins"
       }
     ]
@@ -133,7 +133,7 @@ export const itinerary = [
     day: "Day 3",
     date: "6/28",
     city: "Melbourne",
-    title: "Fitzroy Art Neighbourhood & Carlton Evening Walk",
+    title: "Fitzroy艺术街区 & 卡尔顿花园散步 & 墨尔本大学",
     tags: ["Art", "Coffee", "Neighbourhood", "University"],
     places: [
       {
@@ -147,15 +147,8 @@ export const itinerary = [
         name: "Brunswick Street",
         city: "Melbourne",
         description: "Fitzroy 的核心街道，有很多咖啡店、小店和独立品牌。",
-        highlight: "适合慢慢逛，拍照和找特色小店。",
+        highlight: "适合感受本地生活、咖啡馆、vintage 店和街头艺术。",
         imageKeyword: "brunswick-street-fitzroy"
-      },
-      {
-        name: "Fitzroy Street Art",
-        city: "Melbourne",
-        description: "Fitzroy 有很多涂鸦和街头艺术，是墨尔本文艺气质的代表。",
-        highlight: "很适合拍照，也能感受到墨尔本的创意文化。",
-        imageKeyword: "fitzroy-street-art"
       },
       {
         name: "Carlton Gardens",
