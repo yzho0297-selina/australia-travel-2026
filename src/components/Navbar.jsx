@@ -1,4 +1,4 @@
-import auIcon from "../assest/Au-icon.png";
+import auIcon from "../uploaded-pictures/Au-icon.png";
 
 const navItems = [
   { label: "Home", href: "/", page: "home" },

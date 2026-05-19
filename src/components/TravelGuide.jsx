@@ -1,9 +1,17 @@
+import { useState } from "react";
+import airportStep1 from "../uploaded-pictures/airport-step1.png";
+import airportStep2 from "../uploaded-pictures/airport-step2.png";
+import airportStep3 from "../uploaded-pictures/airport-step3.png";
+import airportStep4 from "../uploaded-pictures/airport-step4.png";
+import beforeLand from "../uploaded-pictures/before-land.png";
+import claimLuggage from "../uploaded-pictures/claim-luggage.png";
+
 const arrivalSteps = [
   {
     title: "落地前：填入境卡",
     body: "在落地之前，空姐通常会发放入境卡。需要自己带一只笔，把它按图中提示填好。",
     note: "建议把护照、入境卡放在随手能拿到的位置。",
-    image: "",
+    images: [beforeLand],
     imageAlt: "入境卡示意图",
     placeholderLabel: "入境卡示意图"
   },
@@ -12,7 +20,7 @@ const arrivalSteps = [
     body: "下飞机后跟着 Arrivals 方向走，找到 SmartGate 自助通关机器（如图）。把护照打开插入机器，机器会拍照。拍照时记得摘掉眼镜、帽子、口罩，刘海不要挡住脸。机器有中文界面，会问几个简单问题，一般情况全选否。",
     note: "完成后机器会打印一张黄色小票。",
     emphasis: true,
-    image: "",
+    images: [airportStep1, airportStep2],
     imageAlt: "SmartGate 机器示意图",
     placeholderLabel: "SmartGate 机器示意图"
   },
@@ -20,7 +28,7 @@ const arrivalSteps = [
     title: "刷脸过关",
     body: "拿到黄色小票后，往 ePassport 走。到闸机前看摄像头刷脸，记得摘掉口罩、帽子和眼镜。听到“嘀”一声后闸机打开即可通过。",
     note: "到这已经成功完成最难的部分！如果遇到问题去闸机右手边人工通道。",
-    image: "",
+    images: [airportStep3],
     imageAlt: "ePassport 闸机示意图",
     placeholderLabel: "ePassport 闸机示意图"
   },
@@ -28,7 +36,7 @@ const arrivalSteps = [
     title: "取行李",
     body: "过关后跟着 Baggage Claim 方向走，看屏幕上自己航班对应的行李转盘号。机场推车是免费的。建议提前在行李箱上做明显标记，避免拿错。",
     note: "如果行李迟迟没出来，记得查看是否行李转盘是否更换。",
-    image: "",
+    images: [claimLuggage],
     imageAlt: "行李转盘示意图",
     placeholderLabel: "行李转盘示意图"
   },
@@ -37,7 +45,7 @@ const arrivalSteps = [
     body: "取完行李后，准备好入境卡和黄色小票。没有需要申报的物品就走绿色通道；有申报物品，或者不确定要不要申报，就走红色通道。排队过程中把两张纸交给工作人员，他会指引你后面往哪里走。如果被问问题，诚实回答即可；如果抽查行李，配合检查就好。",
     note: "到这里就完成了最后一步！出来就可以看到大大的MELBOURNE",
     emphasis: true,
-    image: "",
+    images: [airportStep4],
     imageAlt: "红绿通道示意图",
     placeholderLabel: "红绿通道示意图"
   }
@@ -102,13 +110,65 @@ function SectionHeading({ eyebrow, title, description }) {
 }
 
 function StepVisual({ step }) {
-  if (step.image) {
+  const images = step.images || (step.image ? [step.image] : []);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const hasMultipleImages = images.length > 1;
+
+  const goToPreviousImage = () => {
+    setCurrentImageIndex((index) =>
+      index === 0 ? images.length - 1 : index - 1
+    );
+  };
+
+  const goToNextImage = () => {
+    setCurrentImageIndex((index) =>
+      index === images.length - 1 ? 0 : index + 1
+    );
+  };
+
+  if (images.length > 0) {
     return (
-      <img
-        src={step.image}
-        alt={step.imageAlt}
-        className="aspect-[4/3] h-full w-full rounded-2xl object-cover shadow-soft"
-      />
+      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-soft">
+        <img
+          src={images[currentImageIndex]}
+          alt={`${step.imageAlt} ${currentImageIndex + 1}`}
+          className="h-full w-full object-cover"
+        />
+
+        {hasMultipleImages ? (
+          <>
+            <button
+              type="button"
+              onClick={goToPreviousImage}
+              className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/55 text-2xl leading-none text-[#4F5373] shadow-sm backdrop-blur-xl transition hover:bg-white/75"
+              aria-label="上一张图片"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              onClick={goToNextImage}
+              className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/55 text-2xl leading-none text-[#4F5373] shadow-sm backdrop-blur-xl transition hover:bg-white/75"
+              aria-label="下一张图片"
+            >
+              ›
+            </button>
+            <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-white/45 px-3 py-2 backdrop-blur-xl">
+              {images.map((image, index) => (
+                <button
+                  key={image}
+                  type="button"
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`h-2.5 w-2.5 rounded-full transition ${
+                    index === currentImageIndex ? "bg-[#4F5373]" : "bg-white/70"
+                  }`}
+                  aria-label={`查看第 ${index + 1} 张图片`}
+                />
+              ))}
+            </div>
+          </>
+        ) : null}
+      </div>
     );
   }
 
